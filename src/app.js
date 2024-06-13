@@ -3,13 +3,12 @@ const express = require("express");
 const app = express();
 const axios = require("axios");
 
+app.use(express.json());
+
 app.get("/", async (req, res) => {
-  try {
-    const response = await axios.get(process.env.API_URL);
-    console.log(response);
-  } catch (error) {
-    return res.end(error);
-  }
+  const { data } = await axios.get(process.env.API_URL);
+  console.log(data);
+  res.json(data);
 });
 
 app.listen(process.env.PORT, () =>
